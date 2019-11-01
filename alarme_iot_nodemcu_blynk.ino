@@ -18,11 +18,11 @@ char ssid[] = "xaomi_mauro";
 char pass[] = "1q2w3e4r";
 
 //Declaração das variáveis referentes aos pinos digitais.
-int pinBuzzer = 4;
-int pinSensorPIR = 12;
-int pinLed = 13;
-int pinOnOff = 5;
-int pinSensorPIR2 = 14;
+int pinBuzzer = D2;       // 4; 
+int pinSensorPIR = D6;    // 12;
+int pinLed = D7;          //  13;
+int pinOnOff = D1;        // 5;
+int pinSensorPIR2 = D5;   // 14;
 
 //Variaveis de uso geral
 int valorSensorPIR = 0;
