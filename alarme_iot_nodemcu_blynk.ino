@@ -1,6 +1,7 @@
 /*
 Projeto Arduino - Alarme com Arduino e sensor de movimento PIR
 Por Jota
+versão offline
 ----------------------------------------
 --=<| www.ComoFazerAsCoisas.com.br |>=--
 ----------------------------------------
@@ -24,6 +25,7 @@ int pinLed = D7;          //  13;
 int pinOnOff = D1;        // 5;
 int pinSensorPIR2 = D5;   // 14;
 
+
 //Variaveis de uso geral
 int valorSensorPIR = 0;
 int valorOnOff = 1;
@@ -33,6 +35,8 @@ int sensorAtivado;
 int valorSensorPIR2 = 0;
 unsigned long tempo = 0;
 unsigned long tmpLigAuto = 20000;
+int online = 0;
+
 
 void setup() {
   Serial.begin(9600); //Inicializando o serial monitor
@@ -45,16 +49,19 @@ void setup() {
   pinMode(pinSensorPIR2,INPUT_PULLUP);
    tempo = millis();
 
-  Blynk.begin(auth, ssid, pass);
-  // You can also specify server:
-  //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 80);
-  //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
-
+  if(online=1) {
+    Blynk.begin(auth, ssid, pass);
+    // You can also specify server:
+    //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 80);
+    //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
+  }
    
 }
  
 void loop() {  
-    Blynk.run();
+
+  if(online=1)
+      Blynk.run();
 
   int presenca=0;
 
@@ -81,6 +88,8 @@ void loop() {
   Serial.print(valorSensorPIR);
   Serial.print("  PIR2: ");  
   Serial.print(valorSensorPIR2);
+  Serial.print("  Buzzer: ");  
+  Serial.print(digitalRead(pinBuzzer));
   Serial.print("  tempo:");  
   Serial.print(tempo);
   Serial.print("  milis:");  
@@ -93,14 +102,14 @@ void loop() {
   if (alarmeAtivo==1 && presenca==1) { 
 
     disparaAlarme();
-    
-    
-    if(valorSensorPIR == 1)
-        Blynk.notify("Setor 1 violado!!!");
-    if(valorSensorPIR2 == 1)
-        Blynk.notify("Setor 2 violado!!!");
 
-    
+    if(online=1) {
+      if(valorSensorPIR == 1)
+          Blynk.notify("Setor 1 violado!!!");
+      if(valorSensorPIR2 == 1)
+          Blynk.notify("Setor 2 violado!!!");
+    } 
+   
     qtDisparos = qtDisparos + 1;
     Serial.println(qtDisparos);
  // } else {
@@ -133,7 +142,8 @@ void disparaAlarme() {
 //  digitalWrite(pinLed, HIGH);
    
   //Ligando o buzzer com uma frequencia de 1500 hz.
-  tone(pinBuzzer,1500);
+  //tone(pinBuzzer,1500);
+   digitalWrite(pinBuzzer, HIGH);
   //delay(4000); //tempo que o led fica acesso e o buzzer toca
    
   
@@ -144,5 +154,6 @@ void desligarAlarme() {
 //  digitalWrite(pinLed, LOW);
    
   //Desligando o buzzer
-  noTone(pinBuzzer);
+  //noTone(pinBuzzer);
+   digitalWrite(pinBuzzer, LOW);
 }
