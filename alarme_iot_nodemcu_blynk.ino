@@ -25,10 +25,8 @@ char auth[] = "yT8em9Sq67DDpf_njB04gpPf4WnlHFrp";   // Alarme TCC v.1 - tcc.elet
 // --- variáveis para o Blynk
 // Coloque aqui os dados para conexão à rede WiFi
 // Para redes abertas, coloque a senha como ""
-//char ssid[] = "hostspot_iot";
-//char pass[] = "12345678";
-char ssid[] = "SMASTER";
-char pass[] = "ninamimi2019";
+char ssid[] = "hostspot_iot";
+char pass[] = "12345678";
 //BlynkTimer timer; // Create a Timer object called "timer"! 
 
 //--- Declaração das variáveis referentes aos pinos digitais do NodeMCU
