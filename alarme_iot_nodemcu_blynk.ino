@@ -5,10 +5,12 @@
  * Instituto Federal de Educação, Ciencia e Tecnologia do MA - IFMA - Campus Alcântara
  * Histórico de alterações:
  16/12/2019 - Mauro Jansen 
+ - documentei e organizei o código
  - nome do wifi padrão = hotspot_iot e senha = 12345678
- - documentei o código
  - acrescentei campainha no pino D3 (GPIO 0) e envio de notificação de campainha acionada
  - envio de notificações de alarme ativado/desativado
+ - ativei função pânico com botão V2
+ - adicionei um LED no app para indicar se alarme está disparado
  
 */
 #include <ESP8266WiFi.h>
